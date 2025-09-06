@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula 1 Multilingual AI Assistant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">
+                🏎️ Formula 1 AI Assistant | फॉर्मूला 1 AI सहायक
+            </span>
+            <div class="navbar-text">
+                <span class="language-indicator">🌍 EN | हिं</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row h-100">
+            <div class="col-md-8 mx-auto">
+                <div class="chat-container">
+                    <!-- Example Questions Section -->
+                    <div class="example-questions-section">
+                        <h5 class="example-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Example Questions | उदाहरण प्रश्न
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="example-lang-title">🇬🇧 English</h6>
+                                {% for question in example_questions.english %}
+                                <div class="example-question" onclick="setQuestion('{{ question }}')">
+                                    <i class="fas fa-chevron-right"></i> {{ question }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="example-lang-title">🇮🇳 हिंदी</h6>
+                                {% for question in example_questions.hindi %}
+                                <div class="example-question" onclick="setQuestion('{{ question }}')">
+                                    <i class="fas fa-chevron-right"></i> {{ question }}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div id="chat-messages" class="chat-messages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <strong>🏎️ F1 Assistant:</strong>
+                                <div class="welcome-message">
+                                    <p><strong>Welcome to the Formula 1 Multilingual AI Assistant!</strong></p>
+                                    <p><strong>फॉर्मूला 1 बहुभाषी AI सहायक में आपका स्वागत है!</strong></p>
+
+                                    <div class="features">
+                                        <p><strong>I can help you with:</strong></p>
+                                        <ul>
+                                            <li>🏆 Current driver and constructor standings | वर्तमान ड्राइवर और कंस्ट्रक्टर स्टैंडिंग</li>
+                                            <li>📅 Race calendar and results | रेस कैलेंडर और परिणाम</li>
+                                            <li>📰 Latest F1 news and updates | नवीनतम F1 समाचार और अपडेट</li>
+                                            <li>📚 Historical F1 information | ऐतिहासिक F1 जानकारी</li>
+                                            <li>🔧 Technical regulations and car details | तकनीकी नियम और कार विवरण</li>
+                                        </ul>
+
+                                        <p><strong>Ask me in English or Hindi! | अंग्रेजी या हिंदी में पूछें!</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-container">
+                        <div class="input-group">
+                            <input type="text"
+                                   id="user-input"
+                                   class="form-control"
+                                   placeholder="Ask me anything about Formula 1... | फॉर्मूला 1 के बारे में कुछ भी पूछें..."
+                                   maxlength="500">
+                            <button class="btn btn-primary" type="button" id="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                                Send | भेजें
+                            </button>
+                        </div>
+                        <div id="loading" class="loading-indicator" style="display: none;">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <span id="loading-text">Processing your question... | आपके प्रश्न को संसाधित कर रहे हैं...</span>
+                        </div>
+
+                        <!-- Language Detection Display -->
+                        <div id="language-detection" class="language-detection" style="display: none;">
+                            <small><i class="fas fa-globe"></i> <span id="detected-lang-text">Language detected: English</span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
